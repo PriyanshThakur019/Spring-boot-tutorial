@@ -22,14 +22,14 @@ public class LoginService {
         this.loginDetailsRepository = loginDetailsRepository;
     }
 
-    public ResponseEntity<String> loginWithUserNameAndPassword(CredentialsDTO credentialsDTO) {
+    public ResponseEntity<Boolean> loginWithUserNameAndPassword(CredentialsDTO credentialsDTO) {
         LoginDetails user = loginDetailsRepository.findByUsernameAndPassword(credentialsDTO.getUsername(), credentialsDTO.getPassword()).orElse(null);
 
         if (ObjectUtils.isEmpty(user)) {
-            return new ResponseEntity<>("Could not found the user with given username and password combination", HttpStatus.OK);
+            return new ResponseEntity<>(false, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>("Found", HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     public ResponseEntity<List<LoginDetails>> fetchAllUserDetails() {
@@ -42,5 +42,28 @@ public class LoginService {
         }
 
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    public boolean checkIfUserNameExist(String username) {
+        LoginDetails user = loginDetailsRepository.findByUsername(username).orElse(null);
+        return !ObjectUtils.isEmpty(user);
+    }
+
+    public void insertLoginDetails(String username, String password) {
+        boolean userExist = checkIfUserNameExist(username);
+
+        if (userExist) {
+            log.info("This username is not available");
+            return;
+        }
+
+        LoginDetails loginDetails = LoginDetails.builder()
+                .username(username)
+                .password(password)
+                .build();
+
+        loginDetailsRepository.save(loginDetails);
+
+        log.info("SAVED logindetails");
     }
 }

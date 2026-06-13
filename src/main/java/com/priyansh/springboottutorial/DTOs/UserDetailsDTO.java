@@ -13,11 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDetailsDTO {
-    private int userDetailsId;
+    private Integer userDetailsId;
 
     private String username;
 
     private String name;
+
+    private String password;
 
     private String email;
 
