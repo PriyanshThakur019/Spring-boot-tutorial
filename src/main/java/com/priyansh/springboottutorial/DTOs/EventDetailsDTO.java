@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventDescriptionDTO {
+public class EventDetailsDTO {
     private int eventId;
 
     private String eventName;
