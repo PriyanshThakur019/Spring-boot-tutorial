@@ -1,10 +1,14 @@
 package com.priyansh.springboottutorial.controller;
 
+import com.priyansh.springboottutorial.DTOs.UserEventRelationDTO;
+import com.priyansh.springboottutorial.Entity.EventDetails;
 import com.priyansh.springboottutorial.Entity.UserEventRelation;
 import com.priyansh.springboottutorial.service.UserEventRelationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -19,5 +23,10 @@ public class UserEventRelationController {
     @GetMapping("/getAllUserEventRelation")
     public ResponseEntity<List<UserEventRelation>> getAllUserEventRelation() {
         return userEventRelationService.getAllUserEventRelation();
+    }
+
+    @PostMapping("/registerUserForEvent")
+    public ResponseEntity<Boolean> registerUserForEvent(@RequestBody UserEventRelationDTO userEventRelationDTO) {
+        return userEventRelationService.registerUserForEvent(userEventRelationDTO);
     }
 }

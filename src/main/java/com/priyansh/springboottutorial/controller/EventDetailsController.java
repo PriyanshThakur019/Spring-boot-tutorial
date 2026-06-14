@@ -31,4 +31,14 @@ public class EventDetailsController {
         log.info("Starting to register the event");
         return eventDetailsService.registerEvent(eventDetailsDTO);
     }
+
+    @GetMapping("/getFutureEventsList")
+    public List<EventDetails> getAllFutureEvents() {
+        return eventDetailsService.getAllFutureEvents();
+    }
+
+    @GetMapping("/getPastEventsList")
+    public List<EventDetails> getAllPastEvents() {
+        return eventDetailsService.getAllPastEvents();
+    }
 }
