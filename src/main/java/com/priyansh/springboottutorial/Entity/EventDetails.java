@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -27,10 +30,10 @@ public class EventDetails {
     private String eventName;
 
     @Column(name = "event_date")
-    private Date eventDate;
+    private LocalDate eventDate;
 
     @Column(name = "event_time")
-    private Time eventTime;
+    private LocalTime eventTime;
 
     @Column(name = "event_duration")
     private int eventDuration;

@@ -1,6 +1,5 @@
 package com.priyansh.springboottutorial.Entity;
 
-import com.priyansh.springboottutorial.DTOs.UserDetailsDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,13 +21,11 @@ public class UserEventRelation {
     @Column(name = "user_event_relation_id")
     private int userEventRelationId;
 
-    @Column(name = "username")
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username", nullable = false)
-    private UserDetailsDTO userDetailsDTO;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", referencedColumnName = "username",nullable = false)
+    private UserDetails userDetails;
 
-    @Column(name = "event_id")
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)
     private EventDetails eventDetails;
 

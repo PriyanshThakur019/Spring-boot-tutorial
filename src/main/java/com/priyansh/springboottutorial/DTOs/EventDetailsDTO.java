@@ -5,23 +5,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventDetailsDTO {
-    private int eventId;
+    private Integer eventId;
 
     private String eventName;
 
-    private Date eventDate;
+    private LocalDate eventDate;
 
-    private Time eventTime;
+    private LocalTime eventTime;
 
-    private int eventDuration;
+    private Integer eventDuration;
 
     private String eventDescription;
 }
