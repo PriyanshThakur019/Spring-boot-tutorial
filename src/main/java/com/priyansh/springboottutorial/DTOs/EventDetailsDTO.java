@@ -24,4 +24,6 @@ public class EventDetailsDTO {
     private Integer eventDuration;
 
     private String eventDescription;
+
+    private String imageUrl;
 }

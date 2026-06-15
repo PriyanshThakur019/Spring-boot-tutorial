@@ -1,5 +1,6 @@
 package com.priyansh.springboottutorial.service;
 
+import com.priyansh.springboottutorial.DTOs.PerUserEventDTO;
 import com.priyansh.springboottutorial.DTOs.UserEventRelationDTO;
 import com.priyansh.springboottutorial.Entity.EventDetails;
 import com.priyansh.springboottutorial.Entity.UserDetails;
@@ -11,9 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -92,4 +95,32 @@ public class UserEventRelationService {
                 ObjectUtils.isEmpty(userEventRelationDTO.getUsername()) );
     }
 
+    public PerUserEventDTO getAllEventsPerUser(String username) {
+        UserDetails userDetails = userDetailsRepository.findByUsername(username).orElse(null);
+
+        if (ObjectUtils.isEmpty(userDetails)) {
+            log.info("couldn't find the user with {} username", username);
+            return null;
+        }
+        List<UserEventRelation> userEventRelations = userEventRelationRepository.findByUserDetails(userDetails);
+        List<EventDetails> upcomingEvents = new ArrayList<>();
+        List<EventDetails> pastEvents = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(userEventRelations)) {
+            for (UserEventRelation userEventRelation: userEventRelations) {
+                EventDetails eventDetails = userEventRelation.getEventDetails();
+                LocalDateTime localDateTime = LocalDateTime.of(eventDetails.getEventDate() , eventDetails.getEventTime());
+                if (localDateTime.isAfter(LocalDateTime.now())) {
+                    upcomingEvents.add(eventDetails);
+                } else {
+                    pastEvents.add(eventDetails);
+                }
+            }
+        }
+
+        return PerUserEventDTO.builder()
+                .user(userDetails)
+                .futureEventDetailsList(upcomingEvents)
+                .pastEventDetailsList(pastEvents)
+                .build();
+    }
 }
