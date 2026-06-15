@@ -24,7 +24,7 @@ public class EventDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
-    private int eventId;
+    private Integer eventId;
 
     @Column(name = "event_name")
     private String eventName;
@@ -36,9 +36,12 @@ public class EventDetails {
     private LocalTime eventTime;
 
     @Column(name = "event_duration")
-    private int eventDuration;
+    private Integer eventDuration;
 
     @Column(name = "event_description")
     private String eventDescription;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
 }
