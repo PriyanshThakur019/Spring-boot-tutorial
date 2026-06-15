@@ -30,7 +30,8 @@ public class EventDetailsService {
     }
 
     public ResponseEntity<Boolean> registerEvent(EventDetailsDTO eventDetailsDTO) {
-
+        log.info("Image time is "+eventDetailsDTO.getEventDuration());
+        log.info("Image url is "+eventDetailsDTO.getImageUrl());
         try {
             if(eventRegistrationRequestIsValid(eventDetailsDTO)) {
                 EventDetails eventDetails = EventDetails.builder()
@@ -38,6 +39,8 @@ public class EventDetailsService {
                         .eventDescription(eventDetailsDTO.getEventDescription())
                         .eventName(eventDetailsDTO.getEventName())
                         .eventTime(eventDetailsDTO.getEventTime())
+                        .eventDuration(eventDetailsDTO.getEventDuration())
+                        .imageUrl(eventDetailsDTO.getImageUrl())
                         .build();
                 log.info("validation successful now starting to register the event in database");
                 eventDetailsRepository.saveAndFlush(eventDetails);
