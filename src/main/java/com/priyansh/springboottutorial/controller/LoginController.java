@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @Controller
+@CrossOrigin
 public class LoginController {
     private final LoginService loginService;
 
