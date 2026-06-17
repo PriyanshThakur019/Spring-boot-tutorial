@@ -13,6 +13,7 @@ import java.util.List;
 
 @Controller
 @RestController
+@CrossOrigin
 public class UserEventRelationController {
     private final UserEventRelationService userEventRelationService;
 
