@@ -14,6 +14,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@CrossOrigin
 public class EventDetailsController {
     private final EventDetailsService eventDetailsService;
 
